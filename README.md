@@ -12,6 +12,8 @@ This repository demonstrates deploying applications to Azure, focusing on integr
 
 ## Architecture Diagram
 
+> **Note:** The following diagram uses [Mermaid](https://mermaid-js.github.io/mermaid/#/) syntax. It is rendered automatically on GitHub.com and some Markdown viewers. If you do not see a diagram below, view this file on GitHub or a compatible viewer.
+
 ```mermaid
 flowchart TD
     A[Push to main branch]
@@ -86,40 +88,19 @@ flowchart TD
   - Deploys the Azure Function App to Azure.
   - Configures the API Management integration.
 
-## Setup & Deployment
+## Deployment Steps
 
-**Prerequisites:**
-
-- Azure Subscription
-- Azure CLI configured locally (optional, for manual setup/testing)
-- Jit Account & Credentials
-
-**Steps:**
+You can deploy both the Container App and the Function App using GitHub Actions. Here is a summary:
 
 1. **Fork this repository.**
-2. **Configure GitHub Secrets:** Navigate to your forked repository -> Settings -> Secrets and variables -> Actions. Add the following secrets:
-   - `AZURE_CLIENT_ID`: Service Principal Client ID for Azure authentication.
-   - `AZURE_CLIENT_SECRET`: Service Principal Client Secret.
-   - `AZURE_SUBSCRIPTION_ID`: Your Azure Subscription ID.
-   - `RESOURCE_GROUP`: Name of your main Azure Resource Group.
-   - `ACR_RESOURCE_GROUP`: Name of your ACR Resource Group.
-   - `LOCATION`: Azure region for deployment (e.g., `eastus`).
-   - `ACR_NAME`: Name of your Azure Container Registry.
-   - `ACR_USERNAME`: Username for your ACR (from setup script output).
-   - `ACR_PASSWORD`: Password for your ACR (from setup script output).
-   - `STORAGE_ACCOUNT_NAME`: Name of your Storage Account.
-   - `LOG_ANALYTICS_WORKSPACE_ID`: Log Analytics Workspace ID.
-   - `JIT_CLIENT_ID`: From your Jit account (for the Container Apps deployment).
-   - `JIT_CLIENT_SECRET`: From your Jit account.
-3. **Create Azure Infrastructure:**
-   - **Container Registry:** Create an ACR instance in your chosen region and resource group.
-   - **Resource Groups:** Create a main resource group for the demo resources and a separate one for ACR.
-   - **Container Apps Environment:** The workflow will create this automatically.
-   - **Function App:** The workflow will create this automatically.
-   - **Service Principal:** Create a service principal with sufficient permissions (ACR push/pull, Container Apps management, Function App management, etc.).
-4. **Push to `main` Branch:** Committing and pushing changes to the `main` branch will trigger both GitHub Actions workflows:
-   - `deploy-container-app.yaml` will deploy the Flask app to Container Apps.
-   - `deploy-function-app.yaml` will deploy the Azure Function.
+2. **Set up GitHub Secrets** as described above (see 'Setup & Deployment').
+3. **Create Azure resources** using the provided `setup-azure.sh` script or manually via the Azure Portal/CLI.
+4. **Push to `main` branch** to trigger deployments:
+   - The Flask app will be built and deployed to Azure Container Apps.
+   - The Azure Function will be deployed to Azure Functions.
+5. **Monitor GitHub Actions** for deployment status and logs.
+
+For more details, see the `.github/workflows/` directory and the 'Setup & Deployment' section above.
 
 ## Security Issues & Purpose
 
@@ -139,3 +120,17 @@ This repository contains **deliberately introduced vulnerabilities** in both the
 - **Azure Functions**: For serverless function execution
 - **Azure API Management**: For API gateway functionality
 - **Azure Resource Manager**: For infrastructure management 
+
+---
+
+## Troubleshooting
+
+### Mermaid Diagram Not Rendering
+- Ensure you are viewing this file on GitHub.com or a Markdown viewer that supports Mermaid diagrams.
+- If you see only the code block and not a rendered diagram, try refreshing the page or viewing the file directly on GitHub.
+- For more information, see [GitHub's documentation on Mermaid diagrams](https://github.blog/changelog/2022-02-14-include-diagrams-in-your-markdown-files-with-mermaid/).
+
+### Deployment Issues
+- Double-check that all required GitHub secrets are set.
+- Ensure your Azure resources are created and accessible.
+- Review the logs in GitHub Actions for any errors during deployment. 
