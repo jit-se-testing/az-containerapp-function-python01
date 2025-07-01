@@ -1,0 +1,18 @@
+{
+  "name": "azure-k8s-demo-pr-agent",
+  "version": "1.0.0",
+  "description": "Azure Container Apps & Functions Demo for Jit",
+  "scripts": {
+    "build": "echo 'Build completed'",
+    "test": "echo 'No tests specified'"
+  },
+  "keywords": [
+    "azure",
+    "container-apps",
+    "functions",
+    "security",
+    "jit"
+  ],
+  "author": "Demo",
+  "license": "MIT"
+} 

@@ -1,0 +1,17 @@
+apiVersion: 2023-05-01
+location: eastus
+name: k8s-demo-environment
+properties:
+  appLogsConfiguration:
+    destination: log-analytics
+    logAnalyticsConfiguration:
+      customerId: ""
+      sharedKey: ""
+  workloadProfiles:
+    - name: Consumption
+      workloadProfileType: Consumption
+      minimumCount: 0
+      maximumCount: 3
+tags:
+  Environment: production
+  application: k8s-demo 

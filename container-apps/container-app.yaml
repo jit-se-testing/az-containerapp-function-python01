@@ -1,0 +1,43 @@
+apiVersion: 2023-05-01
+location: eastus
+name: k8s-demo-app
+properties:
+  managedEnvironmentId: /subscriptions/{subscription-id}/resourceGroups/{resource-group}/providers/Microsoft.App/managedEnvironments/k8s-demo-environment
+  configuration:
+    ingress:
+      external: true
+      targetPort: 5000
+      allowInsecure: false
+      traffic:
+        - latestRevision: true
+          weight: 100
+    secrets:
+      - name: api-key
+        value: "dummy_key_container_app_12345"
+    registries:
+      - server: "{acr-name}.azurecr.io"
+        username: "{acr-username}"
+        passwordSecretRef: "acr-password"
+  template:
+    containers:
+      - name: k8s-demo
+        image: "{acr-name}.azurecr.io/k8s-demo:latest"
+        resources:
+          cpu: 0.5
+          memory: 1Gi
+        env:
+          - name: API_KEY
+            secretRef: api-key
+        # Vulnerability: Running as root (default)
+        # Vulnerability: No resource limits properly set
+    scale:
+      minReplicas: 1
+      maxReplicas: 3
+      rules:
+        - name: http-rule
+          http:
+            metadata:
+              concurrentRequests: "10"
+tags:
+  Environment: production
+  application: k8s-demo 
