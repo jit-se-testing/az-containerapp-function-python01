@@ -33,7 +33,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v3
         with:
-          python-version: '3.9'
+          python-version: '3.11'
 
       - name: Install Azure Functions Core Tools
         run: |
@@ -72,7 +72,7 @@ jobs:
         run: |
           # Deploy the function app
           cd function-app
-          func azure functionapp publish $FUNCTION_NAME \
+          func azure functionapp publish ${{ env.FUNCTION_NAME }} \
             --python \
             --build remote
 

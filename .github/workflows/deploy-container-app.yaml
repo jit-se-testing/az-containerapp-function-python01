@@ -15,7 +15,7 @@ on:
 
 env:
   AZURE_SUBSCRIPTION_ID: cf63e15e-fbe9-4c6c-97dc-56ffff3139bc
-  RESOURCE_GROUP: jit-se-testing-k8-demo-pr-agent-rg0
+  RESOURCE_GROUP: jit-se-testing-k8-demo-pr-agent-rg01
   ACR_NAME: jitsetestingacr01
   ACR_USERNAME: jitsetestingacr01
   LOG_ANALYTICS_WORKSPACE_ID: 0735b919-51c9-4ca5-bb7e-84be405c0027
