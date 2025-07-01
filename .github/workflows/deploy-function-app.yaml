@@ -12,6 +12,7 @@ env:
   LOCATION: westeurope
   AZURE_SUBSCRIPTION_ID: cf63e15e-fbe9-4c6c-97dc-56ffff3139bc
   STORAGE_ACCOUNT_NAME: stogk8sdemopragent01
+  FUNCTION_NAME: k8s-demo-function-app
 
 jobs:
   deploy:
@@ -32,7 +33,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v3
         with:
-          python-version: '3.9'
+          python-version: '3.11'
 
       - name: Install Azure Functions Core Tools
         run: |
@@ -42,11 +43,11 @@ jobs:
         run: |
           # Create the Function App if it doesn't exist
           az functionapp show \
-            --name k8s-demo-function-app \
+            --name ${{ env.FUNCTION_NAME }} \
             --resource-group ${{ env.RESOURCE_GROUP }} \
             --output none 2>/dev/null || \
           az functionapp create \
-            --name k8s-demo-function-app \
+            --name ${{ env.FUNCTION_NAME }} \
             --resource-group ${{ env.RESOURCE_GROUP }} \
             --consumption-plan-location ${{ env.LOCATION }} \
             --runtime python \
@@ -60,7 +61,7 @@ jobs:
         run: |
           # Set environment variables
           az functionapp config appsettings set \
-            --name k8s-demo-function-app \
+            --name ${{ env.FUNCTION_NAME }} \
             --resource-group ${{ env.RESOURCE_GROUP }} \
             --settings \
               API_KEY=dummy_key_function_app_12345 \
@@ -71,7 +72,7 @@ jobs:
         run: |
           # Deploy the function app
           cd function-app
-          func azure functionapp publish k8s-demo-function-app \
+          func azure functionapp publish $FUNCTION_NAME \
             --python \
             --build remote
 
@@ -80,7 +81,7 @@ jobs:
           # Get the function app URL
           FUNCTION_URL=$(az functionapp function show \
             --function-name vulnerableFunction \
-            --name k8s-demo-function-app \
+            --name ${{ env.FUNCTION_NAME }} \
             --resource-group ${{ env.RESOURCE_GROUP }} \
             --query "invokeUrlTemplate" \
             --output tsv)
