@@ -22,7 +22,6 @@ env:
   LOCATION: westeurope
   STORAGE_ACCOUNT_NAME: stogk8sdemopragent01
 
-
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -70,12 +69,6 @@ jobs:
             --logs-workspace-id $LOG_ANALYTICS_WORKSPACE_ID
 
       - name: Deploy application to Container Apps
-        env:
-          ACR_NAME: $ACR_NAME
-          ACR_USERNAME: $ACR_USERNAME 
-          ACR_PASSWORD: ${{ secrets.ACR_PASSWORD }}
-          RESOURCE_GROUP: $RESOURCE_GROUP
-          LOCATION: $LOCATION
         run: |
           # Create or update the Container App
           az containerapp create \
