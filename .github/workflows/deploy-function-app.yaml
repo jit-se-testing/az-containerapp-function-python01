@@ -68,7 +68,8 @@ jobs:
               API_KEY=dummy_key_function_app_12345 \
               FUNCTIONS_WORKER_RUNTIME=python \
               WEBSITE_RUN_FROM_PACKAGE=1 \
-              WEBSITE_CONTENTAZUREFILECONNECTIONSTRING="${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}"
+              WEBSITE_CONTENTAZUREFILECONNECTIONSTRING="${{ secrets.AZURE_STORAGE_CONNECTION_STRING }}" \
+              WEBSITE_CONTENTSHARE="k8sdemofunctionapp"
 
       - name: Deploy Function App
         run: |
