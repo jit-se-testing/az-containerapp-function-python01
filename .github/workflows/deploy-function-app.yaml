@@ -11,7 +11,7 @@ env:
   RESOURCE_GROUP: jit-se-testing-k8-demo-pr-agent-rg01
   LOCATION: westeurope
   AZURE_SUBSCRIPTION_ID: cf63e15e-fbe9-4c6c-97dc-56ffff3139bc
-  STORAGE_ACCOUNT_NAME: azstogk8sdemopragent01
+  STORAGE_ACCOUNT_NAME: stogk8sdemopragent01
 
 jobs:
   deploy:

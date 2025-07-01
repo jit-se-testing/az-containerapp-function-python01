@@ -20,7 +20,7 @@ env:
   ACR_USERNAME: jitsetestingacr01
   LOG_ANALYTICS_WORKSPACE_ID: 0735b919-51c9-4ca5-bb7e-84be405c0027
   LOCATION: westeurope
-  STORAGE_ACCOUNT_NAME: azstogk8sdemopragent01
+  STORAGE_ACCOUNT_NAME: stogk8sdemopragent01
 
 
 jobs:
