@@ -17,8 +17,8 @@ This repository demonstrates deploying applications to Azure, focusing on integr
 ```mermaid
 flowchart TD
     A[Push to main branch]
-    
-    subgraph Deploy1[Container Apps Workflow]
+
+    subgraph Deploy1
         B1[Checkout Code]
         B2[Configure Azure]
         B3[Login to ACR]
@@ -27,36 +27,36 @@ flowchart TD
         B6[Deploy to Container Apps]
         B7[Deploy Jit Agent]
     end
-    
-    subgraph Deploy2[Function App Workflow]
+
+    subgraph Deploy2
         C1[Checkout Code]
         C2[Configure Azure]
         C3[Setup Python]
         C4[Deploy Function App]
     end
-    
-    subgraph Azure[Azure Resources]
-        D1[ACR Repository (separate RG)]
+
+    subgraph Azure
+        D1[ACR Repository]
         D2[Container Apps Environment]
         D3[Function App]
         D4[API Management]
         D5[Jit Agent]
     end
-    
+
     A --> B1
     A --> C1
-    
+
     B1 --> B2 --> B3 --> B4 --> B5
     B5 --> D1
     B2 --> B6
     B6 --> D2
     B6 --> B7
     B7 --> D5
-    
+
     C1 --> C2 --> C3 --> C4
     C4 --> D3
     C4 --> D4
-    
+
     style D1 fill:#f9f,stroke:#333
     style D2 fill:#f9f,stroke:#333
     style D3 fill:#f9f,stroke:#333
